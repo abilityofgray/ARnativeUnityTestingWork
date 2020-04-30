@@ -58,3 +58,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+*.mat
+Assets/French Fries Free/
+Assets/Unity-Logs-Viewer/
