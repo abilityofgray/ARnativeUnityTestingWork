@@ -15,17 +15,63 @@ public class PhoneCamera : MonoBehaviour
     public AspectRatioFitter Fitter;
     public GameObject Model;
     
-
     WebCamDevice[] devices;
     float biggerModelSideSize;
     Vector3 modelSize;
-
+    
     void Start()
     {
         
         defaultBackground = Background.texture;
         devices = WebCamTexture.devices;
-        
+
+        GetModelMesh();
+        GetCameraDevices();
+
+    }
+
+    //Get camera from device
+    void GetCameraDevices() {
+
+        if (devices.Length == 0)
+        {
+
+            camAvailable = false;
+            return;
+
+        }
+
+        for (int i = 0; i < devices.Length; i++)
+        {
+
+            if (!devices[i].isFrontFacing)
+            {
+
+                CurrentCameraIndex = i;
+                backCam = new WebCamTexture(devices[i].name,
+                    Screen.width,
+                    Screen.height);
+                RepositionModel();
+
+            }
+
+            if (backCam == null)
+            {
+
+                return;
+
+            }
+
+            backCam.Play();
+            Background.texture = backCam;
+
+            camAvailable = true;
+
+        }
+
+    }
+
+    void GetModelMesh() {
 
         if (Model.GetComponentInChildren<MeshRenderer>() != null)
         {
@@ -35,44 +81,6 @@ public class PhoneCamera : MonoBehaviour
 
         }
 
-        if (devices.Length == 0) {
-
-            
-            camAvailable = false;
-            return;
-
-        }
-
-        for (int i = 0; i < devices.Length; i++)
-        {
-
-
-            
-            if (!devices[i].isFrontFacing)
-            {
-                
-                CurrentCameraIndex = i;
-                backCam = new WebCamTexture(devices[i].name, 
-                    Screen.width, 
-                    Screen.height);
-                RepositionModel();
-            }
-
-            if (backCam == null)
-            {
-
-                
-                return;
-
-            }
-            
-            backCam.Play();
-            Background.texture = backCam;
-
-            camAvailable = true;
-        }
-        
-        
     }
 
     public void RepositionModel() {

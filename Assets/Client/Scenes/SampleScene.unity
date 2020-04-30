@@ -195,7 +195,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 3.569e-42, y: 1.04e-43, z: 2.7561486e+23, w: 0}
+  m_BoundingSphereOverride: {x: 3.604e-42, y: 1.04e-43, z: 2.7561486e+23, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -539,12 +539,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Background: {fileID: 1352476052}
-  BackGroundBlank: {fileID: 0}
   Fitter: {fileID: 1352476054}
-  DeviceCameraIndex: 0
-  CurrentCameraIndex: 0
   Model: {fileID: 506341499}
-  _camera: {fileID: 534669904}
 --- !u!1 &554511924
 GameObject:
   m_ObjectHideFlags: 0
