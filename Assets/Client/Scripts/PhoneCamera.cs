@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+#if PLATFORM_ANDROID
+using UnityEngine.Android;
+#endif
 
 public class PhoneCamera : MonoBehaviour
 {
@@ -18,20 +21,33 @@ public class PhoneCamera : MonoBehaviour
     WebCamDevice[] devices;
     float biggerModelSideSize;
     Vector3 modelSize;
-    
+
+    private void Awake()
+    {
+        if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
+            Permission.RequestUserPermission(Permission.Camera);
+
+    }
     void Start()
     {
+        #if PLATFORM_ANDROID
         
-        defaultBackground = Background.texture;
-        devices = WebCamTexture.devices;
+        if (Permission.HasUserAuthorizedPermission(Permission.Camera))
+        {
 
-        GetModelMesh();
-        GetCameraDevices();
-
+            GetModelMesh();
+            GetCameraDevices();
+            
+        }
+        #endif
+        
     }
 
     //Get camera from device
     void GetCameraDevices() {
+
+        defaultBackground = Background.texture;
+        devices = WebCamTexture.devices;
 
         if (devices.Length == 0)
         {
@@ -57,7 +73,7 @@ public class PhoneCamera : MonoBehaviour
 
             if (backCam == null)
             {
-
+                
                 return;
 
             }
